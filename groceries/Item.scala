@@ -1,5 +1,5 @@
 package groceries
 
-class Item(val name: String, val price: Int):
-  override def toString: String = s"$name: $price"
+class Item(val name: String):
+  override def toString: String = s"$name"
 end Item
