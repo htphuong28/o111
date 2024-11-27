@@ -8,6 +8,9 @@ enum Command(repr: String):
   case PickUp(id: Int) extends Command("pick-up")
   case Move(direction: Direction) extends Command("move")
   case Drop(id: Int) extends Command("drop")
+  case Examine(id: Int) extends Command("examine")
+  case Help extends Command("help")
+  case Quit extends Command("quit")
   
   def execute(game: Game): Unit =
     this match
@@ -25,7 +28,15 @@ enum Command(repr: String):
         println(if game.drop(id) then
                 s"You dropped the ${game.playerArea.items.last.name}."
                 else s"You don't have ${game.player.inventory(id)} in your inventory!")
-
+      case Examine(id) =>
+        println(if game.examine(id) then
+                game.playerArea.items(id).description
+                else s"You don't have ${game.player.inventory(id)} in your inventory!")
+      case Help =>
+        println("Available commands: status, move <direction>, pick-up <index>, drop <index>, examine <index>, quit, help")
+      case Quit =>
+        println("You quitted the game.")
+        System.exit(0)
 end Command
 
 object Command:

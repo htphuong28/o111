@@ -30,6 +30,9 @@ class Game:
   def pickUp(idx: Int): Boolean =
     this.playerArea.removeItem(idx).map(this.player.addItem).isDefined
 
+  def examine(idx: Int): Boolean =
+    this.player.inventory.lift(idx).isDefined
+  
   def drop(idx: Int): Boolean =
     this.player.removeItem(idx).map(this.playerArea.addItem).isDefined
     

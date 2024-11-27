@@ -9,13 +9,15 @@ import scala.io.StdIn
   println("It is your sister's birthday, and your mom assigned you to buy:")
   println(game.player.shoppingList.mkString(", ").trim)
   println("Be sure to bring them back in time, or your mom will ground you!")
+  println("To start, pick up the phone. If you need help remembering the list,")
+  println("Mom might tell you. Then go out and do your task!")
+  println("-------------------------------------------------------------------")
 
   while !game.hasWon && !game.hasLost do
-      Command.parse(StdIn.readLine("> ")) match
-        case Some(command) => command.execute(game)
-        case None => println("Invalid command. See 'help' for a list of commands.")
-  
-  
+    println(game.playerArea.toString)
+    Command.parse(StdIn.readLine("> ")) match
+      case Some(command) => command.execute(game)
+      case None => println("Invalid command. See 'help' for a list of commands.")
 
   if game.hasWon then
     println("You bought enough stuffs to host your sister's birthday party.")

@@ -31,7 +31,8 @@ class Area(val name: String,
       case Some(None) => None
       case Some(Some(neighbor)) => neighbor.traverse(path.tail)
 
-  override def toString: String = s"$name: $description"
+  override def toString: String = 
+    s"$name: $description\nYou see: ${this._items.mkString(", ")}.\nPaths available: ${this._neighbors.keys.mkString(", ")}."
 end Area
 
 object Area:
