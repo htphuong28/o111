@@ -2,8 +2,8 @@ package groceries
 
 import scala.collection.mutable
 
-class Game():
-  private val player: Player = Player()
+class Game:
+  val player: Player = Player()
   private val map: Area = Area.map
   private val playerPath: mutable.Buffer[Direction] = mutable.Buffer.empty
 
