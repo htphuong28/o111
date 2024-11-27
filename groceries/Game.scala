@@ -18,4 +18,10 @@ class Game():
       true
     else false
 
+  def pickUp(idx: Int): Boolean =
+    this.playerArea.removeItem(idx).map(this.player.addItem).isDefined
+
+  def drop(idx: Int): Boolean =
+    this.player.removeItem(idx).map(this.playerArea.addItem).isDefined
+
 end Game
