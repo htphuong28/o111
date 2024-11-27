@@ -35,7 +35,20 @@ class Game:
   
   def drop(idx: Int): Boolean =
     this.player.removeItem(idx).map(this.playerArea.addItem).isDefined
-    
+
+  def use(idx: Int): Option[String] =
+    this.player.inventory.lift(idx).flatMap({
+      case item if item.hasExpired =>
+        this.player.removeItem(idx)
+        None
+      case item =>
+        val msg = item.use(this)
+        if item.hasExpired then
+          this.player.removeItem(idx)
+          Some(msg + "\n" + item.onExpire)
+        else Some(msg)
+    })
+
   def hasWon: Boolean =
     this.playerArea.name == "House" &&
       this.player.shoppingList.forall(this.player.inventory.contains)

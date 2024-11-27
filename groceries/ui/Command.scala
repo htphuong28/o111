@@ -11,7 +11,7 @@ enum Command(repr: String):
   case Examine(id: Int) extends Command("examine")
   case Help extends Command("help")
   case Quit extends Command("quit")
-  case Use extends Command("use")
+  case Use(id: Int) extends Command("use")
   
   def execute(game: Game): Unit =
     this match
@@ -34,11 +34,13 @@ enum Command(repr: String):
                 game.player.inventory(id).description
                 else s"You don't have item no. ${id} in your inventory!")
       case Help =>
-        println("Available commands: status, move <direction>, pick-up <index>, drop <index>, examine <index>, quit, help")
+        println("Available commands: status, move <direction>, pick-up <index>, drop <index>, examine <index>, quit, help, use <index>")
       case Quit =>
         println("You quitted the game.")
         System.exit(0)
-      case Use => println("Used")
+      case Use(id) => game.use(id) match
+        case None => println("You don't have this item.")
+        case Some(msg) => println(msg)
 end Command
 
 object Command:
@@ -48,13 +50,14 @@ object Command:
       case "status" => Some(Command.Status)
       case "help" => Some(Command.Help)
       case "quit" => Some(Command.Quit)
-      case "use" => Some(Command.Use)
+      case "use" =>
+        argv.tail.headOption.flatMap(_.toIntOption).map(_ - 1).map(Command.Use.apply)
       case "drop" =>
-        argv.tail.headOption.flatMap(_.toIntOption).map(Command.Drop.apply)
+        argv.tail.headOption.flatMap(_.toIntOption).map(_ - 1).map(Command.Drop.apply)
       case "examine" =>
-        argv.tail.headOption.flatMap(_.toIntOption).map(Command.Examine.apply)
+        argv.tail.headOption.flatMap(_.toIntOption).map(_ - 1).map(Command.Examine.apply)
       case "pick-up" =>
-        argv.tail.headOption.flatMap(_.toIntOption).map(Command.PickUp.apply)
+        argv.tail.headOption.flatMap(_.toIntOption).map(_ - 1).map(Command.PickUp.apply)
       case "move" =>
         argv.tail.headOption.map(_.toLowerCase).flatMap({
           case "north" => Some(Direction.North)
