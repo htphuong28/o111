@@ -24,9 +24,10 @@ class Area(val name: String,
   def neighbors: Map[Direction, Area] = this._neighbors.toMap
 
   def traverse(path: Vector[Direction]): Option[Area] =
-    path.headOption
-      .map(this._neighbors.get)
-      .flatMap(_.flatMap(_.traverse(path.tail)))
+    path.headOption.map(this._neighbors.get) match
+      case None => Some(this)
+      case Some(None) => None
+      case Some(Some(neighbor)) => neighbor.traverse(path.tail)
 
   override def toString: String = s"$name: $description"
 end Area
