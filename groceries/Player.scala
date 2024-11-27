@@ -1,7 +1,7 @@
 package groceries
 import scala.collection.mutable
 
-class Player:
+class Player(val shoppingList: Vector[Item]):
   private val _inventory: mutable.Buffer[Item] =
     mutable.Buffer.empty
 
