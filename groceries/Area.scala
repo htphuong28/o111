@@ -20,9 +20,9 @@ class Area(val name: String,
 
   def setNeighbor(direction: Direction, neighbor: Area):Unit =
     this._neighbors.update(direction, neighbor)
-    
+
   def neighbors: Map[Direction, Area] = this._neighbors.toMap
-    
+
   def traverse(path: Vector[Direction]): Option[Area] =
     path.headOption
       .map(this._neighbors.get)
@@ -40,7 +40,20 @@ object Area:
     val park          = Area("Park", "The local park with a few amenities for children to play in.")
     val oldPort       = Area("Old Port", "A good place for fishing and finding dropped items.")
     val beach         = Area("Beach", "Swim, relax, find seashells, build sandcastles; it's chill here.")
-    
+
+    // items
+
+    park.addItem(Item("apple"))
+    park.addItem(Item("grass"))
+    mainStreet.addItem(Item("snak"))
+    supermarket.addItem(Item("Swedish meatballs"))
+    supermarket.addItem(Item("apple cider"))
+    beach.addItem(Item("shrimp"))
+    beach.addItem(Item("salmon"))
+    oldPort.addItem(Item("old slipper"))
+
+    // neighbors
+
     house.setNeighbor(Direction.West, sideStreet)
     house.setNeighbor(Direction.South, mainStreet)
     
