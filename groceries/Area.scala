@@ -44,14 +44,14 @@ object Area:
 
     // items
 
-    park.addItem(Item("apple"))
-    park.addItem(Item("grass"))
-    mainStreet.addItem(Item("snak"))
-    supermarket.addItem(Item("Swedish meatballs"))
-    supermarket.addItem(Item("apple cider"))
-    beach.addItem(Item("shrimp"))
-    beach.addItem(Item("salmon"))
-    oldPort.addItem(Item("old slipper"))
+    park.addItem(Item("apple", "This is a fresh apple, similar to the one that fell on Newton's head."))
+    park.addItem(Item("grass", "Fresh grass that brings you freshness and a touch of nature."))
+    mainStreet.addItem(Item("snak", "An important part of every party."))
+    supermarket.addItem(Item("Swedish meatballs", "Your favorite food from Otacruise. You try to find the flavor in Finnish market."))
+    supermarket.addItem(Item("apple cider", "Your favorite beverage, so appealling."))
+    beach.addItem(Item("shrimp", "Fresh shrimp from the sea."))
+    beach.addItem(Item("salmon", "Mom has a lot of delicious recipe to try with this piece of salmon. Can't wait to try!"))
+    oldPort.addItem(Item("old slipper","Probably, someone left it there to swim at the sea."))
 
     // neighbors
 
