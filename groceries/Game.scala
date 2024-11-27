@@ -3,10 +3,12 @@ package groceries
 import scala.collection.mutable
 
 class Game:
-  val player: Player = Player()
+  val player: Player = Player(Vector(
+    "apple", "salmon", "snak"
+  ))
   private val map: Area = Area.map
   private val playerPath: mutable.Buffer[Direction] = mutable.Buffer.empty
-  private var turnsLeft = 30
+  private var turnsLeft = 10
 
   def playerArea: Area =
     this.map.traverse(this.playerPath.toVector) match
