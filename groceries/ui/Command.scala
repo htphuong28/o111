@@ -11,6 +11,7 @@ enum Command(repr: String):
   case Examine(id: Int) extends Command("examine")
   case Help extends Command("help")
   case Quit extends Command("quit")
+  case Use extends Command("use")
   
   def execute(game: Game): Unit =
     this match
@@ -18,7 +19,7 @@ enum Command(repr: String):
       case PickUp(id) =>
         println(if game.pickUp(id) then
                 s"You picked up the ${game.player.inventory.last.name}."
-                else s"There's no ${game.playerArea.items(id)} to pick up here!")
+                else s"There's no item no. ${id} to pick up here!")
       case Move(direction) => 
         println(if game.move(direction) then
                 val textDir = direction.toString.toLowerCase      
@@ -27,16 +28,17 @@ enum Command(repr: String):
       case Drop(id) => 
         println(if game.drop(id) then
                 s"You dropped the ${game.playerArea.items.last.name}."
-                else s"You don't have ${game.player.inventory(id)} in your inventory!")
+                else s"You don't have item no. ${id} in your inventory!")
       case Examine(id) =>
         println(if game.examine(id) then
-                game.playerArea.items(id).description
-                else s"You don't have ${game.player.inventory(id)} in your inventory!")
+                game.player.inventory(id).description
+                else s"You don't have item no. ${id} in your inventory!")
       case Help =>
         println("Available commands: status, move <direction>, pick-up <index>, drop <index>, examine <index>, quit, help")
       case Quit =>
         println("You quitted the game.")
         System.exit(0)
+      case Use => println("Used")
 end Command
 
 object Command:
@@ -44,6 +46,13 @@ object Command:
     val argv = s.trim.split(' ')
     argv.headOption.map(_.toLowerCase).flatMap({
       case "status" => Some(Command.Status)
+      case "help" => Some(Command.Help)
+      case "quit" => Some(Command.Quit)
+      case "use" => Some(Command.Use)
+      case "drop" =>
+        argv.tail.headOption.flatMap(_.toIntOption).map(Command.Drop.apply)
+      case "examine" =>
+        argv.tail.headOption.flatMap(_.toIntOption).map(Command.Examine.apply)
       case "pick-up" =>
         argv.tail.headOption.flatMap(_.toIntOption).map(Command.PickUp.apply)
       case "move" =>
