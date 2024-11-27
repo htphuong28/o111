@@ -1,0 +1,15 @@
+You have to buy some items for your sister's birthday.
+You can move around the town, pick up different items
+and return home with all the required items to win
+the game. However, remember that you only have limited
+turn before your mother gets angry.
+Commands:
+- help: show possible commands
+- move <Direction>: move in a certain direction
+- status: show current inventory
+- pick-up <index>: get the item with the index as shown from current Area
+- drop <index>: put the item with index as shown in inventory into an Area
+- quit: give up current game
+- examine <index>: see the description of item with index as shown in inventory
+- use <index>: use the function of a certain item. only phone is usable. phone
+call may increase number of turns left.
