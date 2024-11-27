@@ -16,7 +16,9 @@ import scala.io.StdIn
   while !game.hasWon && !game.hasLost do
     println(game.playerArea.toString)
     Command.parse(StdIn.readLine("> ")) match
-      case Some(command) => command.execute(game)
+      case Some(command) =>
+        println(s"You have ${game.turnsLeft} turn(s) left before mom becomes Angry Bird.")
+        command.execute(game)
       case None => println("Invalid command. See 'help' for a list of commands.")
 
   if game.hasWon then

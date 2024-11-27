@@ -8,9 +8,11 @@ class Game:
   ))
   private val map: Area = Area.map
   private val playerPath: mutable.Buffer[Direction] = mutable.Buffer.empty
-  private var _turnsLeft = 20
+  private var _turnsLeft = 15
   
   def turnsLeft: Int = this._turnsLeft
+
+  def decreaseTurn(): Unit = _turnsLeft -=1
   
   def addTurns(amount: Int): Unit = _turnsLeft += amount
   
@@ -23,7 +25,7 @@ class Game:
     if this.turnsLeft <= 0 then false
     else if this.playerArea.neighbors.contains(direction) then
       this.playerPath.append(direction)
-      this._turnsLeft -= 1
+      this.decreaseTurn()
       true
     else false
 
@@ -51,7 +53,7 @@ class Game:
 
   def hasWon: Boolean =
     this.playerArea.name == "House" &&
-      this.player.shoppingList.forall(this.player.inventory.contains)
+      this.player.shoppingList.forall(this.player.inventory.map(_.name).contains)
     
   def hasLost: Boolean =
     this.turnsLeft <= 0 &&
