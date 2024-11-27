@@ -45,7 +45,7 @@ object Area:
     val beach         = Area("Beach", "Swim, relax, find seashells, build sandcastles; it's chill here.")
 
     // items
-
+    house.addItem(Phone("phone", "Your personal cellphone; it can be used to call people like Mom."))
     park.addItem(RegItem("apple", "This is a fresh apple, similar to the one that fell on Newton's head."))
     park.addItem(RegItem("grass", "Fresh grass that brings you freshness and a touch of nature."))
     park.addItem(RegItem("balloons", "Pop these colorful things to scare the kids away."))
