@@ -5,7 +5,7 @@ class Area(val name: String,
            val description: String):
 
   private val _items: mutable.Buffer[Item] = mutable.Buffer()
-  private val neighbors: mutable.HashMap[Direction, Area] =
+  private val _neighbors: mutable.HashMap[Direction, Area] =
     mutable.HashMap.empty
 
   def addItem(item: Item): Unit =
@@ -19,7 +19,14 @@ class Area(val name: String,
     )
 
   def setNeighbor(direction: Direction, neighbor: Area):Unit =
-    neighbors.update(direction, neighbor)
+    this._neighbors.update(direction, neighbor)
+    
+  def neighbors: Map[Direction, Area] = this._neighbors.toMap
+    
+  def traverse(path: Vector[Direction]): Option[Area] =
+    path.headOption
+      .map(this._neighbors.get)
+      .flatMap(_.flatMap(_.traverse(path.tail)))
 
   override def toString: String = s"$name: $description"
 end Area
