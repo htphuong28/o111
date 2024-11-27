@@ -1,12 +1,21 @@
 package groceries.ui
 
-import groceries.Direction
+import groceries.{Direction, Game}
 import groceries.ui.Command.Move
 
 enum Command(repr: String):
   case Status extends Command("status")
-  case Take(id: Int) extends Command("take")
+  case PickUp(id: Int) extends Command("pick-up")
   case Move(direction: Direction) extends Command("move")
+  case Drop(id: Int) extends Command("drop")
+  
+  def execute(game: Game): Unit =
+    this match
+      case Status => println(game.player)
+      case PickUp(id) => game.pickUp(id)
+      case Move(direction) => game.move(direction)
+      case Drop(id) => game.drop(id)
+
 end Command
 
 object Command:
@@ -14,8 +23,8 @@ object Command:
     val argv = s.trim.split(' ')
     argv.headOption.map(_.toLowerCase).flatMap({
       case "status" => Some(Command.Status)
-      case "take" =>
-        argv.tail.headOption.flatMap(_.toIntOption).map(Command.Take.apply)
+      case "pick-up" =>
+        argv.tail.headOption.flatMap(_.toIntOption).map(Command.PickUp.apply)
       case "move" =>
         argv.tail.headOption.map(_.toLowerCase).flatMap({
           case "north" => Some(Direction.North)
