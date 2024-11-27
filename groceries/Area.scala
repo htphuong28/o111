@@ -8,6 +8,8 @@ class Area(val name: String,
   private val _neighbors: mutable.HashMap[Direction, Area] =
     mutable.HashMap.empty
 
+  def items: Vector[Item] = _items.toVector
+  
   def addItem(item: Item): Unit =
     this._items += item
 
@@ -44,14 +46,18 @@ object Area:
 
     // items
 
-    park.addItem(Item("apple", "This is a fresh apple, similar to the one that fell on Newton's head."))
-    park.addItem(Item("grass", "Fresh grass that brings you freshness and a touch of nature."))
-    mainStreet.addItem(Item("snak", "An important part of every party."))
-    supermarket.addItem(Item("Swedish meatballs", "Your favorite food from Otacruise. You try to find the flavor in Finnish market."))
-    supermarket.addItem(Item("apple cider", "Your favorite beverage, so appealling."))
-    beach.addItem(Item("shrimp", "Fresh shrimp from the sea."))
-    beach.addItem(Item("salmon", "Mom has a lot of delicious recipe to try with this piece of salmon. Can't wait to try!"))
-    oldPort.addItem(Item("old slipper","Probably, someone left it there to swim at the sea."))
+    park.addItem(RegItem("apple", "This is a fresh apple, similar to the one that fell on Newton's head."))
+    park.addItem(RegItem("grass", "Fresh grass that brings you freshness and a touch of nature."))
+    park.addItem(RegItem("balloons", "Pop these colorful things to scare the kids away."))
+    mainStreet.addItem(RegItem("snack", "An important part of every party."))
+    supermarket.addItem(RegItem("Swedish meatballs", "Your favorite food from Otacruise. You try to find the flavor in Finnish market."))
+    supermarket.addItem(RegItem("apple cider", "Your favorite beverage, so appealling."))
+    supermarket.addItem(RegItem("coke", "Great drink and great DIY firework, if you shake it hard enough"))
+    supermarket.addItem(RegItem("dollhouse", "A great way to play pretend a family, perfect for young kids."))
+    supermarket.addItem(RegItem("cake", "Your sister LOVES sugar; let's hope she doesn't get a sugar rush over this sweet treat!"))
+    beach.addItem(RegItem("shrimp", "Fresh shrimp from the sea."))
+    beach.addItem(RegItem("salmon", "Mom has a lot of delicious recipe to try with this piece of salmon. Can't wait to try!"))
+    oldPort.addItem(RegItem("old slipper","Probably, someone left it there to swim at the sea."))
 
     // neighbors
 

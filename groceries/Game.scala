@@ -4,12 +4,16 @@ import scala.collection.mutable
 
 class Game:
   val player: Player = Player(Vector(
-    "apple", "salmon", "snak"
+    "cake", "dollhouse", "coke", "snack", "balloons"
   ))
   private val map: Area = Area.map
   private val playerPath: mutable.Buffer[Direction] = mutable.Buffer.empty
-  private var turnsLeft = 10
-
+  private var _turnsLeft = 20
+  
+  def turnsLeft: Int = this._turnsLeft
+  
+  def addTurns(amount: Int): Unit = _turnsLeft += amount
+  
   def playerArea: Area =
     this.map.traverse(this.playerPath.toVector) match
       case Some(area) => area
@@ -19,7 +23,7 @@ class Game:
     if this.turnsLeft <= 0 then false
     else if this.playerArea.neighbors.contains(direction) then
       this.playerPath.append(direction)
-      this.turnsLeft -= 1
+      this._turnsLeft -= 1
       true
     else false
 

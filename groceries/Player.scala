@@ -14,4 +14,9 @@ class Player(val shoppingList: Vector[String]):
         item
     )
 
+  override def toString: String =
+    val task = "Your task is to buy these for your sister's birthday:\n" + this.shoppingList.mkString(", ").trim
+    val inventory = "You have:\n" + this.inventory.mkString(", ").trim
+    task + "\n" + inventory 
+  
 end Player

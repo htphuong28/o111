@@ -12,9 +12,19 @@ enum Command(repr: String):
   def execute(game: Game): Unit =
     this match
       case Status => println(game.player)
-      case PickUp(id) => game.pickUp(id)
-      case Move(direction) => game.move(direction)
-      case Drop(id) => game.drop(id)
+      case PickUp(id) =>
+        println(if game.pickUp(id) then
+                s"You picked up the ${game.player.inventory.last.name}."
+                else s"There's no ${game.playerArea.items(id)} to pick up here!")
+      case Move(direction) => 
+        println(if game.move(direction) then
+                val textDir = direction.toString.toLowerCase      
+                s"You move ${textDir}."
+                else "You can't move there!")
+      case Drop(id) => 
+        println(if game.drop(id) then
+                s"You dropped the ${game.playerArea.items.last.name}."
+                else s"You don't have ${game.player.inventory(id)} in your inventory!")
 
 end Command
 
